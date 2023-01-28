@@ -1,4 +1,6 @@
 const multer = require("multer");
+const sharp = require("sharp");
+const path = require("path");
 
 //storage
 const multerStorage = multer.memoryStorage();
@@ -20,9 +22,28 @@ const multerFilter = (req, file, cb) => {
 };
 
 const profilePhotoUpload = multer({
-  storage: multerStorage,
+  storage: multerStorage, 
   fileFilter: multerFilter,
   limits: { fileSize: 1000000 },
 });
 
-module.exports = { profilePhotoUpload };
+const profilePhotoResize = async (req, res, next) => {
+  if(!req.file) return next();
+
+  req.file.filename = `user-${Date.now()}-${req.file.originalname}`;
+
+  console.log('Resizing', req.file);
+
+  await sharp(req.file.buffer)
+    .resize(250, 250)
+    .toFormat("jpeg")
+    .jpeg({qualit: 90})
+    .toFile(path.join(`public/images/profile/${req.file.filename}`));
+
+    next();
+}
+
+module.exports = { 
+  profilePhotoUpload,
+  profilePhotoResize
+};
