@@ -4,6 +4,7 @@ const User = require("../../model/user/User");
 const crypto = require("crypto");
 const sgMail = require("@sendgrid/mail");
 const validateMongodbId = require("../../utils/validateMongodbID");
+const cloudinaryUploadImg = require("../../utils/cloudinary");
 
 sgMail.setApiKey(process.env.SEND_GRID_API_KEY);
 
@@ -349,8 +350,11 @@ const passwordResetCtrl = expressAsyncHandler(async (req, res) => {
 });
 
 const profilePhotoUploadCtrl = expressAsyncHandler(async (req, res) => {
-  console.log(req.file);
-  res.json("upload");
+  
+  const localPath =  `public/images/profile/${req.file.filename}`;
+  const imgUploaded = await cloudinaryUploadImg(localPath);
+  console.log(imgUploaded);
+  res.json(localPath);
 });
 
 module.exports = {
