@@ -21,7 +21,7 @@ const {
 } = require("../../controllers/users/usersCtrl");
 const authMiddleware = require("../../middlewares/auth/authMiddleware");
 const { 
-  profilePhotoUpload,
+  photoUpload,
   profilePhotoResize
 } = require("../../middlewares/uploads/profilePhotoUpload");
 
@@ -35,7 +35,7 @@ userRoutes.put("/verify-account", authMiddleware, accountVerfiicationCtrl);
 userRoutes.put(
   "/profilephoto-upload", 
   authMiddleware, 
-  profilePhotoUpload.single('image'), 
+  photoUpload.single('image'), 
   profilePhotoResize,
   profilePhotoUploadCtrl
 );
