@@ -46,7 +46,7 @@ const postSchema = new mongoose.Schema({
   },
   image: {
     type: String,
-    default: "",
+    default: "https://cdn.pixabay.com/photo/2023/01/27/09/40/australian-king-parrot-7748188_960_720.jpg",
   },
 
 }, {
