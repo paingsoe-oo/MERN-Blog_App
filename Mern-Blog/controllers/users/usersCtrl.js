@@ -5,6 +5,7 @@ const crypto = require("crypto");
 const sgMail = require("@sendgrid/mail");
 const validateMongodbId = require("../../utils/validateMongodbID");
 const cloudinaryUploadImg = require("../../utils/cloudinary");
+const fs = require("fs");
 
 sgMail.setApiKey(process.env.SEND_GRID_API_KEY);
 
@@ -364,7 +365,9 @@ const profilePhotoUploadCtrl = expressAsyncHandler(async (req, res) => {
     {new: true}
   );
 
-  console.log(imgUploaded);
+  //console.log(imgUploaded);
+  //Remove the saved image
+  fs.unlinkSync(localPath);
   res.json(localPath);
 });
 
