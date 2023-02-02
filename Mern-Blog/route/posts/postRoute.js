@@ -12,7 +12,7 @@ const authMiddleware = require('../../middlewares/auth/authMiddleware');
 const { 
   photoUpload,
   postImgResize
- } = require('../../middlewares/uploads/profilePhotoUpload');
+ } = require('../../middlewares/uploads/photoUpload');
 
 const postRoute = express.Router();
 

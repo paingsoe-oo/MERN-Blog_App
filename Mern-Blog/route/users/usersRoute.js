@@ -23,7 +23,7 @@ const authMiddleware = require("../../middlewares/auth/authMiddleware");
 const { 
   photoUpload,
   profilePhotoResize
-} = require("../../middlewares/uploads/profilePhotoUpload");
+} = require("../../middlewares/uploads/photoUpload");
 
 const userRoutes = express.Router();
 
