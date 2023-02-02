@@ -79,7 +79,38 @@ const fetchPostCtrl = expressAsyncHandler(async (req, res) => {
   }
 });
 
+//Update post
+const updatePostCtrl = expressAsyncHandler(async (req, res) => {
+  const { id } = req.params;
+  validateMongodbId(id);
+
+  try {
+    const post = await Post.findByIdAndUpdate(id, {
+      ...req.body,
+      user: req.user?._id,
+    }, {new: true, });
+    res.json(post);
+  } catch (error) {
+    res.json(error);
+  }
+});
+
+//Delete post
+const deletePostCtrl = expressAsyncHandler(async (req, res) => {
+  const { id } = req.params;
+  validateMongodbId(id);
+
+  try {
+    const post = await Post.findOneAndDelete(id);
+    res.json(post);
+  } catch (error) {
+    res.json(error);
+  }
+});
+
 module.exports = {
+  deletePostCtrl,
+  updatePostCtrl,
   createPostCtrl,
   fetchPostsCtrl,
   fetchPostCtrl
