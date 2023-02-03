@@ -7,7 +7,7 @@ const User = require("../../model/user/User");
 const cloudinaryUploadImg = require("../../utils/cloudinary");
 
 
-//Create Post
+//Create Post 
 const createPostCtrl = expressAsyncHandler(async (req, res) => {
   
   const { _id } = req.user;
@@ -16,7 +16,6 @@ const createPostCtrl = expressAsyncHandler(async (req, res) => {
   //Check for bad words
   const filter = new Filter();
   const isProfane = filter.isProfane(req.body.title, req.body.description);
-  //console.log(isProfane);
 
 
   if(isProfane) {
@@ -27,19 +26,19 @@ const createPostCtrl = expressAsyncHandler(async (req, res) => {
   }
 
   //1.Get the path to img
-  //const localPath =  `public/images/posts/${req.file.filename}`;
+  //const localPath =  `public/images/posts/${req.file.filename}`; //temp
   //2.Upload to cloudinary
-  //const imgUploaded = await cloudinaryUploadImg(localPath);
+  //const imgUploaded = await cloudinaryUploadImg(localPath); // temp
 
   try {
     const post = await Post.create({
       ...req.body, 
-      //image: imgUploaded?.url,
+      //image: imgUploaded?.url, //temp
       user: _id,
     });
     res.json(post);
     //Remove uploaded img
-    //fs.unlinkSync(localPath);
+    //fs.unlinkSync(localPath); //temp
   } catch (error) { 
     res.json(error);
   }
